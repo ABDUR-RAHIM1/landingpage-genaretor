@@ -3,7 +3,7 @@ import FormTitle from '../../../Helpers/FormTitle'
 import InputField from '../../../Helpers/Inputs'
 import AddBtn from '../../../Helpers/AddBtn'
 import FormSubTitle from '../../../Helpers/FormSubTitle'
-import { formContext } from '../../../ContextApi/ContextApi' 
+import { formContext } from '../../../ContextApi/ContextApi'
 
 export default function ProductInfoForm() {
     const [quote, setQuote] = useState({
@@ -11,6 +11,7 @@ export default function ProductInfoForm() {
         author: ""
     })
     const { handleUpdateState, formData, handleUploadFile, imgLoading } = useContext(formContext)
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -35,7 +36,13 @@ export default function ProductInfoForm() {
             value: quote
         }
         handleUpdateState(data)
+        setQuote({
+            quote: "",
+            author: ""
+        })
     }
+
+    const countLength = formData.product.quote.length
 
     return (
         <div className='formWrapper'>
@@ -49,10 +56,11 @@ export default function ProductInfoForm() {
                         type="file"
                         handler={handleFile}
                         width="w-full"
+                        required={true}
                     />
                 </div>
                 <div className="formSection">
-                    <FormSubTitle text={"Add Quote (multiple)"} />
+                    <FormSubTitle text={`Add Quote (${countLength})`} />
                     <div className='formGroup'>
 
                         <InputField
@@ -60,12 +68,16 @@ export default function ProductInfoForm() {
                             name="quote"
                             placeholder="Quate Text"
                             handler={handleChange}
+                            value={quote.quote}
+                            required={countLength < 1 ? true : false}
                         />
                         <InputField
                             label="Author Name"
                             name="author"
                             placeholder="author Name"
                             handler={handleChange}
+                            value={quote.author}
+                            required={countLength < 1 ? true : false}
                         />
                         <br />
                         <AddBtn handleAdd={handleAddToState} text={"add Quate"} />

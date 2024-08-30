@@ -1,9 +1,13 @@
 import React, { useContext } from 'react';
 import { formContext } from '../ContextApi/ContextApi';
+import { useLocation } from 'react-router-dom';
 
 export default function SelectField(props) {
     const { label, name, value, options, width, required } = props;
     const { handleChange, formData, } = useContext(formContext)
+
+    const location = useLocation().pathname
+    let isRequired = location.endsWith("/edit-page") ? false : required
 
     return (
         <div className={`${width || "w-[48%]"}`}>
@@ -17,7 +21,7 @@ export default function SelectField(props) {
                 id={name}
                 value={value}
                 onChange={handleChange}
-                required={required || true}
+                required={isRequired || true}
                 className={`input mt-2 placeholder-gray-500 placeholder-opacity-50 placeholder:capitalize `}
             >
                 <option value="">Select Type</option> {/* Placeholder option */}

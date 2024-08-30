@@ -28,7 +28,6 @@ export default function Orders() {
 
     }, []);
 
-    console.log(orders)
 
     const columns = [
         {

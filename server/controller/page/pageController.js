@@ -23,7 +23,6 @@ const createPage = async (req, res) => {
             ok: true
         })
     } catch (error) {
-        console.log(error)
         errorHelpers(res, error)
     }
 }
@@ -34,7 +33,7 @@ const getPage = async (req, res) => {
     const { username, pageId } = req.params;
 
     try {
-        const user = await userModal.findOne({ username });
+        const user = await userModal.findOne({ username }).select("-password");;
 
         if (!user) {
             return res.status(404).json({
@@ -55,13 +54,39 @@ const getPage = async (req, res) => {
     }
 }
 
+// edit page
+const editPage = async (req, res) => {
+    const { username } = req.user;
+    const { pageId } = req.params;
+    try {
+        const user = await userModal.findOne({ username }).select("-password");
+        if (!user) {
+            return res.status(404).json({ message: "User Not Found", ok: false });
+        }
+
+        const pageById = user.pages.id(pageId);
+        if (!pageById) {
+            return res.status(404).json({ message: "Page Not Found", ok: false });
+        }
+
+        pageById.set({ ...req.body });
+        await user.save();
+        return res.status(200).json({
+            message: "Page Updated",
+            ok: true,
+            page: pageById
+        });
+    } catch (error) {
+        errorHelpers(res, error)
+    }
+}
 
 const deletePage = async (req, res) => {
     const { username } = req.user;
     const { pageId } = req.params;
 
     try {
-        const user = await userModal.findOne({ username });
+        const user = await userModal.findOne({ username }).select("-password");;
 
         if (!user) {
             return res.status(404).json({ message: "User Not Found", ok: false });
@@ -85,4 +110,4 @@ const deletePage = async (req, res) => {
 
 
 
-module.exports = { createPage, getPage, deletePage }
+module.exports = { createPage, getPage, editPage, deletePage }

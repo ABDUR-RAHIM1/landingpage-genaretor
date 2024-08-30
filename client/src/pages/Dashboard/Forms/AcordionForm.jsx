@@ -7,7 +7,9 @@ import { formContext } from '../../../ContextApi/ContextApi'
 
 export default function AcordionForm() {
 
-    const { handleUpdateState } = useContext(formContext);
+    const { formData, handleUpdateState } = useContext(formContext);
+    const { heading, text } = formData.acordion;
+
     const [acordion, setAcordion] = useState({ question: "", answer: "" });
 
     const handleChange = (e) => {
@@ -22,7 +24,11 @@ export default function AcordionForm() {
         };
 
         handleUpdateState(data)
+        setAcordion({ question: "", answer: "" })
     }
+
+    const countLength = formData.acordion.acordions.length
+
     return (
         <div className='formWrapper'>
             <FormTitle text={"Add FAQ"} />
@@ -33,28 +39,36 @@ export default function AcordionForm() {
                         label="Heading"
                         name="acordion.heading"
                         placeholder="Ex : FAQ"
+                        value={heading}
+                        required={true}
                     />
                     <InputField
                         label="Text"
                         name="acordion.text"
                         placeholder="Ex : Your question Our Answer"
+                        value={text}
+                        required={true}
                     />
                 </div>
             </div>
             <div className="formSection">
-                <FormSubTitle text={"Add Multiple"} />
+                <FormSubTitle text={`Add FAQ (${countLength})`} />
                 <div className="formGroup">
                     <InputField
                         label="Question"
                         name="question"
                         placeholder="Ex : Why Chose Our Product"
                         handler={handleChange}
+                        value={acordion.question}
+                        required={countLength < 1 ? true : false}
                     />
                     <InputField
                         label="Answer"
                         name="answer"
                         placeholder="Ex : One of the Best Product"
                         handler={handleChange}
+                        value={acordion.answer}
+                        required={countLength < 1 ? true : false}
                     />
                     <AddBtn
                         handleAdd={handleAddToState}

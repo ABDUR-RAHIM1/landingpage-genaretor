@@ -1,8 +1,11 @@
+import { toast } from "react-toastify";
+
 const uploadFile = async (filePath) => {
 
     const file = filePath
     if (!file) {
         console.error('No file selected.');
+        toast.warning('No file selected.');
         return;
     }
 
@@ -24,6 +27,7 @@ const uploadFile = async (filePath) => {
 
     } catch (error) {
         console.error('Upload failed:', error);
+        toast.error('Upload failed:', error);
     }
 };
 

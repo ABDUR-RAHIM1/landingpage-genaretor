@@ -36,13 +36,11 @@ export default function PageDetails() {
         getData()
     }, [id, username])
 
-    console.log(id, username)
 
     if (loading) {
         return <Loader />
     }
-
-    console.log(pageDetails)
+ 
 
     return (
 

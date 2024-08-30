@@ -23,7 +23,7 @@
 
   .text h4 {
     @apply text-2xl font-medium my-3
-  } 
+  }
 
   .acordionWrapper {
     @apply py-4 flex justify-between flex-wrap flex-col border rounded-md
@@ -92,6 +92,10 @@
 
   /*  demo page end */
 
+  /*  test css delete after end */
+  .test{
+    @apply bg-gray-400 flex items-center justify-center
+  }
 
 }
 

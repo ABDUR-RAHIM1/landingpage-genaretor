@@ -5,14 +5,15 @@ import { formContext } from '../../../ContextApi/ContextApi'
 
 export default function ReviewForm() {
 
-    const { handleMultipleFile, imgLoading } = useContext(formContext)
+    const { formData, handleMultipleFile, imgLoading } = useContext(formContext)
+    const { heading, text } = formData.review;
 
     const handleFileChange = (e) => {
         const data = {
             name: "review",
             value: [...e.target.files]
         }
-        console.log(data)
+
         handleMultipleFile(data)
     }
     return (
@@ -24,11 +25,15 @@ export default function ReviewForm() {
                         label="heading"
                         name="review.heading"
                         placeholder="Ex : review Headline"
+                        value={heading}
+                        required={true}
                     />
                     <InputField
                         label="Text"
                         name="review.text"
                         placeholder="Ex : review Text"
+                        value={text}
+                        required={true}
                     />
                 </div>
                 <div className="formGroup">
@@ -39,6 +44,7 @@ export default function ReviewForm() {
                         multiple="multiple"
                         width="w-full"
                         handler={handleFileChange}
+                        required={true}
                     />
                 </div>
             </div>

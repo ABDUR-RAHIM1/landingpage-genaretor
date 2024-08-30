@@ -1,9 +1,7 @@
 import React, { useContext, useState } from 'react'
 import ProductInfoForm from './ProductInfoForm'
-import AcordionForm from './AcordionForm'
-import { BASE_URL } from '../../../API/Api'
-import uploadFile from '../../../Helpers/UploadFIle'
-import { token } from '../../../App'
+import AcordionForm from './AcordionForm' 
+import uploadFile from '../../../Helpers/UploadFIle' 
 import Spinner from '../../../Homecomponents/Spinner'
 import { formContext } from '../../../ContextApi/ContextApi'
 import ReviewForm from './ReviewForm'
@@ -13,7 +11,7 @@ import SubProductForm from './SubProductForm'
 
 
 export default function CreatePageForm() {
-    const { formData, setFormData, handleCreatePage, loading } = useContext(formContext) 
+    const { formData, setFormData, handleCreatePage, loading } = useContext(formContext)
     const [imgLoading, setImgLoading] = useState(false)
 
 
@@ -47,9 +45,9 @@ export default function CreatePageForm() {
         <form onSubmit={handleCreatePage}>
             {/*  first section */}
 
-            <HeroForm handleChange={handleChange} />
-            <ProductInfoForm handleChange={handleChange} />
-            <InfoForm handleChange={handleChange} />
+            <HeroForm />
+            <ProductInfoForm />
+            <InfoForm />
             <AcordionForm />
             <SubProductForm />
             <ReviewForm />

@@ -21,17 +21,14 @@ const createOrder = async (req, res) => {
         })
     } catch (error) {
         errorHelpers(res, error)
-        console.log(error)
     }
 }
 
 const getOrders = async (req, res) => {
-    const { userid, username, email } = req.user;
+    const {username } = req.user;
 
     try {
         const user = await userModal.findOne({ username })
-        console.log(user)
-
         if (!user) {
             return res.status(404).json({ message: "User not found" })
         }

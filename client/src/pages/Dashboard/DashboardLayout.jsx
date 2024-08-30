@@ -14,8 +14,7 @@ export default function DashboardLayout({ children }) {
 
         <nav className=' nav my-10'>
           <Link to={`/dashboard/${username}`}>Dashboard</Link>
-          <Link to={`/dashboard/${username}/create-page`}>Create Page</Link>
-          <Link to={`/dashboard/${username}/page-list`}> Your Pages</Link>
+          <Link to={`/dashboard/${username}/create-page`}>Create Page</Link> 
           <Link to={`/dashboard/${username}/page-manage`}>Manage Pages</Link>
           <Link to={`/dashboard/${username}/orders`}>Orders</Link>
         </nav>

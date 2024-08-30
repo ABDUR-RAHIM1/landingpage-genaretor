@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import images from '../constans/Constans';
+import React, { useState } from 'react' 
 import Button from './Button';
 export default function SubProduct(props) {
     const { image, about } = props.subProductData;

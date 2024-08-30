@@ -169,8 +169,7 @@ export default function ContextApi({ children }) {
                 images: reviewImgs
             },
         }))
-    }, [logo, productImg, subProductImg, reviewImgs, quote, acordion, about,])
-
+    }, [logo, productImg, subProductImg, reviewImgs, quote, acordion, about])
 
     //  page context start
 
@@ -193,7 +192,7 @@ export default function ContextApi({ children }) {
             });
 
             const data = await res.json();
-       
+
             const user = {
                 name: data.name,
                 email: data.email,
@@ -232,7 +231,7 @@ export default function ContextApi({ children }) {
                 });
 
                 const result = await res.json();
-                result.ok ? toast.success(result.message) : toast.error("Cannot Fetching Data")
+                result.ok ? toast.success(result.message) : toast.error("Could not be Fatching")
             } catch (error) {
                 console.log(error.message)
                 toast.error(error.message)
@@ -241,6 +240,25 @@ export default function ContextApi({ children }) {
             }
         }
         createPage()
+    }
+
+    // edit page
+    const handleEditPage = async (pageId) => {
+      
+        try {
+            const response = await fetch(`${BASE_URL}/page/one/${pageId}`, {
+                method: "PUT",
+                headers: {
+                    "Content-type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify(formData)
+            })
+            response.ok ? toast.success("Page Updated") : toast.error("Could not be updated")
+        } catch (error) {
+            toast.error("Could not be updated")
+            console.log(error)
+        }
     }
 
     //  delete page 
@@ -256,7 +274,7 @@ export default function ContextApi({ children }) {
                 });
 
                 const result = await res.json();
-                console.log(result)
+              
                 result.ok ? toast.success(result.message) : toast.error(result.message)
                 setIsDone(!isDone)
             } catch (error) {
@@ -275,7 +293,7 @@ export default function ContextApi({ children }) {
         try {
             const res = await fetch(`${BASE_URL}/page/one/${username}/${id}`);
             const data = await res.json();
-            console.log(data)
+        
             setPage(data)
         } catch (error) {
             console.log(error)
@@ -298,7 +316,7 @@ export default function ContextApi({ children }) {
             });
 
             const result = await response.json();
-            console.log(result)
+        
             result.ok ? toast.success(result.message) : toast.error(result.message)
         } catch (error) {
             console.log(error.message)
@@ -306,14 +324,7 @@ export default function ContextApi({ children }) {
         }
     }
 
-    const getOrders = async () => {
-        try {
-            const response = await fetch(`${BASE_URL}/order/all`)
-        } catch (error) {
-            console.log(error.message)
-            toast.error("failed to get Orders")
-        }
-    }
+
 
 
     // orders end
@@ -327,7 +338,7 @@ export default function ContextApi({ children }) {
 
         /* page details start*/
         getUser, userInfo,
-        handleCreatePage, handleDeletePage, isDone, setIsDone,
+        handleCreatePage, handleEditPage, handleDeletePage, isDone, setIsDone,
         getPageDetails, page,
         /* page details end*/
 

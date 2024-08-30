@@ -56,7 +56,7 @@ const registerUser = async (req, res) => {
         const user = await newUser.save()
 
         res.status(201).json({
-            message: "User Register succesful",
+            message: "User Register successful",
         })
     } catch (error) {
         errorHelpers(res, error)
@@ -72,7 +72,7 @@ const loginUser = async (req, res) => {
 
 
         if (matchEmail) {
-            //  compair password 
+            //  compare password 
             const comparePass = await bcrypt.compare(password, matchEmail.password);
 
             if (comparePass) {

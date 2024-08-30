@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom'
 
 export default function OrderDetails() {
     const orderData = useLocation().state;
-    console.log(orderData)
+    
     return (
         <DashboardLayout>
             <div className="container mx-auto p-4">

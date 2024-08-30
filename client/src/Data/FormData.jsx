@@ -7,10 +7,10 @@ const initialFormState = {
         },
         utils: {
             gradientType: '',
-            gradientRoated: 0,
-            primaryBgColor: '',
-            secondaryBgColor: '',
-            primaryTextColor: '',
+            gradientRoated: 135,
+            primaryBgColor: '#00c6ff',
+            secondaryBgColor: '#0072ff',
+            primaryTextColor: '#ffffff',
         }
     },
     product: {

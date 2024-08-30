@@ -49,6 +49,10 @@ export default function ManagePage() {
       selector: row => row.createdAt ? new Date(row.createdAt).toLocaleDateString() : new Date().toLocaleDateString(),
     },
     {
+      name: 'Edit',
+      selector: row => <Link to={`/dashboard/${user.username}/edit-page`} state={row} className=' block py-2 px-4 bg-blue-700 text-white rounded-md hover:bg-blue-600 duration-300'>Edit</Link>
+    },
+    {
       name: 'Delete',
       selector: row => <button onClick={() => handleDeletePage(row._id)} className=' py-2 px-4 bg-red-700 text-white rounded-md hover:bg-red-600 duration-300'>Delete</button>
     },
