@@ -1,18 +1,46 @@
 import React, { createContext, useEffect, useState } from 'react'
 import initialFormState from '../Data/FormData';
 import { BASE_URL } from '../API/Api';
-import orderFormState from '../Data/OrderFormState';
-import { token } from '../App';
+import orderFormState from '../Data/OrderFormState'; 
 import { toast } from 'react-toastify';
 import uploadFile from '../Helpers/UploadFIle';
+import Cookies from 'js-cookie';
 
 export const formContext = createContext()
 
 export default function ContextApi({ children }) {
+
+    const [token, setToken] = useState(Cookies.get('pageToken'));
+    const [user, setUser] = useState(Cookies.get('pageUser') ? JSON.parse(Cookies.get('pageUser')) : null);
+
+    useEffect(() => {
+        const storedToken = Cookies.get('pageToken');
+        const storedUser = Cookies.get('pageUser');
+
+        if (storedToken) setToken(storedToken);
+        if (storedUser) setUser(JSON.parse(storedUser));
+    }, []);
+
+    const login = (token, user) => {
+        setToken(token);
+        setUser(user);
+        Cookies.set("pageToken", token, { expires: 7 });
+        Cookies.set("pageUser", JSON.stringify(user), { expires: 7 });
+    };
+
+    const logout = () => {
+        Cookies.remove('pageToken');
+        Cookies.remove('pageUser');
+        setToken(null);
+        setUser(null);
+    };
+
+    //  token , user , auth end here
+
     const [pageDetails, setPageDetails] = useState(null)
     // 1
     const [loading, setLoading] = useState(false)
-    const [isDone, setIsDone] = useState(false)
+    const [isDone, setIsDone] = useState(null)
     const [imgLoading, setImgLoading] = useState(false)
     const [formData, setFormData] = useState(initialFormState);
 
@@ -183,7 +211,7 @@ export default function ContextApi({ children }) {
 
     //  get user , who login 
     const getUser = async () => {
-        setLoading(true)
+        isDone === null ? setLoading(true) : setLoading(false)
         try {
             const res = await fetch(`${BASE_URL}/user/one`, {
                 headers: {
@@ -244,7 +272,7 @@ export default function ContextApi({ children }) {
 
     // edit page
     const handleEditPage = async (pageId) => {
-      
+
         try {
             const response = await fetch(`${BASE_URL}/page/one/${pageId}`, {
                 method: "PUT",
@@ -274,7 +302,7 @@ export default function ContextApi({ children }) {
                 });
 
                 const result = await res.json();
-              
+
                 result.ok ? toast.success(result.message) : toast.error(result.message)
                 setIsDone(!isDone)
             } catch (error) {
@@ -293,7 +321,7 @@ export default function ContextApi({ children }) {
         try {
             const res = await fetch(`${BASE_URL}/page/one/${username}/${id}`);
             const data = await res.json();
-        
+
             setPage(data)
         } catch (error) {
             console.log(error)
@@ -316,7 +344,7 @@ export default function ContextApi({ children }) {
             });
 
             const result = await response.json();
-        
+
             result.ok ? toast.success(result.message) : toast.error(result.message)
         } catch (error) {
             console.log(error.message)
@@ -331,6 +359,9 @@ export default function ContextApi({ children }) {
 
 
     const value = {
+
+        token, user, login, logout,
+
         pageDetails, setPageDetails,
         loading, imgLoading,
       /* 1 */  formData, setFormData,

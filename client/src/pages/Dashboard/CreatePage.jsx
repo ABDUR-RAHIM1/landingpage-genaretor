@@ -15,8 +15,8 @@ export default function CreatePage() {
     return (
         <DashboardLayout>
             <div className=' flex items-center justify-between relative'>
-                <h2 className=' text-2xl my-5 font-medium'>Create Your Own Page</h2>
-                <button onClick={openDemo} className='button'>View Demo</button>
+                <h2 className=' text-xl md:text-2xl my-5 font-medium'>Create Your Business Page</h2>
+                <button onClick={openDemo} className=' py-3 px-4 text-white font-normal bg-orange-600 '>View Demo</button>
             </div>
             {
                 show &&

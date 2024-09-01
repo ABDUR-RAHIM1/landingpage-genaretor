@@ -10,7 +10,7 @@ const uploadFile = async (filePath) => {
     }
 
     const form = new FormData();
-    form.append("image", file); // ImgBB API expects the field name to be 'image'
+    form.append("image", file);
 
     try {
         const res = await fetch('https://api.imgbb.com/1/upload?key=862850e874b9b92bba3bbba84383b4dd', {
@@ -22,7 +22,7 @@ const uploadFile = async (filePath) => {
             throw new Error(`Error: ${res.statusText}`);
         }
 
-        const data = await res.json();
+        const data = await res.json(); 
         return data.data.url;
 
     } catch (error) {

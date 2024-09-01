@@ -53,13 +53,14 @@ const registerUser = async (req, res) => {
             password: hashPassword
         });
 
-        const user = await newUser.save()
+         await newUser.save()
 
         res.status(201).json({
-            message: "User Register successful",
+            message: "Register successful",
+            ok: true
         })
     } catch (error) {
-        errorHelpers(res, error)
+        errorHelpers(res, error) 
     }
 }
 

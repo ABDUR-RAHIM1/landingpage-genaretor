@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { BASE_URL } from '../../../API/Api';
-import Loader from '../../../PageComponents/Loader';
+import { BASE_URL } from '../../../API/Api'; 
 import Product from '../../../PageComponents/Product';
 import Acordion from '../../../PageComponents/Acordion';
 import Order from '../../Order/Order';
@@ -10,6 +9,7 @@ import SubProduct from '../../../PageComponents/SubProduct';
 import Footer from '../../../PageComponents/Footer';
 import Reviews from '../../../PageComponents/Reviews';
 import { formContext } from '../../../ContextApi/ContextApi';
+import FullLoader from '../../../PageComponents/FullLoader';
 
 export const pageContext = createContext()
 
@@ -38,9 +38,9 @@ export default function PageDetails() {
 
 
     if (loading) {
-        return <Loader />
+        return <FullLoader />
     }
- 
+
 
     return (
 

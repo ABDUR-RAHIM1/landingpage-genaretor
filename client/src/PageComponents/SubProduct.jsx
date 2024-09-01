@@ -1,4 +1,4 @@
-import React, { useState } from 'react' 
+import React, { useState } from 'react'
 import Button from './Button';
 export default function SubProduct(props) {
     const { image, about } = props.subProductData;
@@ -9,18 +9,19 @@ export default function SubProduct(props) {
     }
     return (
         <div className=' px-10 my-10'>
-            <div className=' my-5  w-full text-center '>
-                {
-                    about && about.map((a, i) => (
-                        <p key={i}>{a}</p>
-                    ))
-                }
-            </div>
+
             <div className=' w-full md:w-[80%] m-auto'>
-                <img src={image[imageIndex]} className=' w-full h-[500px] rounded-md ' alt="" />
+                <div className=' my-10  w-full text-center '>
+                    {
+                        about && about.map((a, i) => (
+                            <p key={i}>{a}</p>
+                        ))
+                    }
+                </div>
+                <img src={image[imageIndex]} className=' w-full h-[550px] rounded-md ' alt="" />
 
             </div>
-            <div className='w-full my-5 p-10 bg-gray-100 flex items-center justify-center gap-4'>
+            <div className='w-full overflow-x-scroll my-5 p-10 bg-gray-100 flex items-center justify-center gap-6'>
                 {
                     image && image.map((image, i) => (
                         <img onClick={() => handleAddPhoto(i)} key={i} className=' w-[200px] h-[200px] cursor-pointer' src={image} alt={`${image + i}`} />
@@ -29,7 +30,7 @@ export default function SubProduct(props) {
             </div>
 
             <div className=' text-center my-10'>
-                <Button border={"border-blue-700"} />
+                <Button />
             </div>
 
         </div>

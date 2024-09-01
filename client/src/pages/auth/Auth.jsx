@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { BASE_URL } from "../../API/Api";
 import Spinner from '../../Homecomponents/Spinner';
 import { toast } from 'react-toastify';
-import { useNavigate } from "react-router-dom"
-import Cookies from "js-cookie"
-import { token, user } from '../../App';
-export default function Auth() {
+import { useNavigate } from "react-router-dom" 
+import { formContext } from '../../ContextApi/ContextApi';
 
+export default function Auth() {
+    const { token, login } = useContext(formContext)
     const [show, setShow] = useState(false);
     const [formData, setFormData] = useState({})
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
+
 
 
     //  auto navigate to dashboard when user is login
@@ -18,15 +19,55 @@ export default function Auth() {
         if (token) {
             navigate(`/dashboard/${user.username}`)
         }
-    }, [])
-
+    }, [token])
+    console.log(formData)
     const handleChange = (e) => {
+
         setFormData({ ...formData, [e.target.name]: e.target.value })
     }
 
-    const handleSubmit = (e) => {
+    const registerUser = () => {
 
-        e.preventDefault();
+        if (formData.username.includes(' ')) {
+            return toast.error("Username should not contain spaces");
+        }
+
+        if (formData.password.length < 6) {
+            return toast.error(" Password Must be at least 6 characters.");
+        }
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const isValidEmail = emailRegex.test(formData.email);
+
+        if (!isValidEmail) {
+            return toast.error("Please provide a valid email address.");
+        }
+
+        setLoading(true)
+        fetch(`${BASE_URL}/user/register`, {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        })
+            .then(res => res.json())
+            .then(data => {
+                setLoading(false)
+                if (data.ok) {
+                    toast.success(data.message)
+                    setShow(false)
+                } else {
+                    toast.error(data.message)
+                }
+
+            }).catch(err => {
+                console.log(err)
+                setLoading(false)
+            })
+    }
+
+    const loginUser = () => {
+
         setLoading(true)
         fetch(`${BASE_URL}/user/login`, {
             method: "POST",
@@ -40,14 +81,21 @@ export default function Auth() {
                 setLoading(false)
                 if (data.token) {
                     toast.success(data.message)
-                    Cookies.set("pageToken", data.token, { expires: 7 })
-                    Cookies.set("pageUser", JSON.stringify(data.user), { expires: 7 })
+                    login(data.token, data.user);
                     navigate(`/dashboard/${data.user.username}`)
                 } else {
                     toast.error(data.message)
                 }
 
             })
+    }
+
+    const handleSubmit = (e) => {
+
+        e.preventDefault();
+        show ? registerUser()
+            :
+            loginUser()
 
     }
 
@@ -58,10 +106,10 @@ export default function Auth() {
                     স্বাগতম
                 </h1>
                 <p className='text-sm my-2'>
-                    আমাদেরে সেবা গ্রহন করার জন্য একাউন্ট তৈরি করুন এবং লগইন করুন ।
+                    আমাদের সেবা গ্রহণ করতে এখনই আপনার একাউন্ট তৈরি করুন এবং লগইন করুন।
                 </p>
                 <p className='text-sm my-2'>
-                    আমাদেরে সাথে থাকার জন্য অসংখ্য ধন্যবাদ ।
+                    আমাদের সাথে থাকার জন্য এবং আমাদের ওপর আস্থা রাখার জন্য আপনার প্রতি কৃতজ্ঞ।
                 </p>
             </div>
 
@@ -76,21 +124,21 @@ export default function Auth() {
                         <>
                             <div className='my-3'>
                                 <label htmlFor="username">Business Name</label>
-                                <input onChange={handleChange} className='input' type="text" name='username' placeholder='Your Business Name' />
+                                <input onChange={handleChange} className='input' type="text" required name='username' placeholder='Your Business Name' />
                             </div>
                             <div className='my-3'>
                                 <label htmlFor="name">Name</label>
-                                <input onChange={handleChange} className='input' type="text" name='name' placeholder='Your Good Name' />
+                                <input onChange={handleChange} className='input' type="text" name='name' required placeholder='Your Good Name' />
                             </div>
                         </>
                     }
                     <div className='my-3'>
                         <label htmlFor="email">Email </label>
-                        <input onChange={handleChange} className='input' type="email" name='email' placeholder='Your Verifyed Email' />
+                        <input onChange={handleChange} className='input' type="email" name='email' required placeholder='Your Verifyed Email' />
                     </div>
                     <div className='my-3'>
                         <label htmlFor="password">Password </label>
-                        <input onChange={handleChange} className='input' type="password" name='password' placeholder='Strong Password' />
+                        <input onChange={handleChange} className='input' type="password" name='password' required placeholder=' Password' />
                     </div>
                     <div className=' text-sm my-5 text-right '>
 

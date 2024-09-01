@@ -10,7 +10,7 @@ export default function SelectField(props) {
     let isRequired = location.endsWith("/edit-page") ? false : required
 
     return (
-        <div className={`${width || "w-[48%]"}`}>
+        <div className={`${width || " w-full md:w-[48%] my-3"}`}>
             {label && (
                 <label htmlFor={name} className='capitalize'>
                     {label}

@@ -1,2 +1,2 @@
-email : abdurr@gdmail.com
+email : abdurrahim@gdmail.com
 pass  : 1111

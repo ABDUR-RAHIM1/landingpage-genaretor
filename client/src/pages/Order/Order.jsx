@@ -30,7 +30,7 @@ export default function Order(props) {
         }))
     }, [page, info, username, totalAmount])
 
- 
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -55,26 +55,31 @@ export default function Order(props) {
     }
 
     return (
-        <form onSubmit={handleSubmit} className=' orderFormWrapper'>
-            <div id='place-order' />
-            <div className='orderForm'>
-                <h2 className=' text-xl font-medium my-5'>অর্ডারটি সম্পন্ন করতে নিচের ফর্মটি পুরন
-                    করে <span className=' text-red-600 font-bold'>Order Now</span> বাটনে ক্লিক করুন</h2>
-
-                {
-                    formFields.map(input => (
-                        <div key={input.name} className=' w-full my-2'>
-                            <label htmlFor={input.name}>{input.label}</label>
-                            <input value={orderForm[input.name]} onChange={handleChange} type={input.type} name={input.name} required={input.required} placeholder={input.placeholder} className='input' />
-                        </div>
-                    ))
-                }
-
+        <div className='py-10  bg-gray-200'>
+            <div className='w-full px-5 md:px-20 py-10 mb-5 bg-orange-500 text-white'>
+                <h2 className=' text-xl font-medium my-5 text-center'>অর্ডারটি সম্পন্ন করতে নিচের ফর্মটি পুরন
+                    করে <span className='font-bold underline'>অর্ডার করুন</span> বাটনে ক্লিক করুন</h2>
             </div>
-            <div className='cartWrapper'>
-                <Cart info={info} orderForm={orderForm} proccesing={proccesing} />
-            </div>
-            {show && <Alert closeAlert={closeAlert} />}
-        </form>
+            <form onSubmit={handleSubmit} className=' orderFormWrapper'>
+                <div id='place-order' />
+                <div className='orderForm'>
+
+
+                    {
+                        formFields.map(input => (
+                            <div key={input.name} className=' w-full my-5'>
+                                <label htmlFor={input.name}>{input.label}</label>
+                                <input value={orderForm[input.name]} onChange={handleChange} type={input.type} name={input.name} required={input.required} placeholder={input.placeholder} className='input' />
+                            </div>
+                        ))
+                    }
+
+                </div>
+                <div className='cartWrapper'>
+                    <Cart info={info} orderForm={orderForm} proccesing={proccesing} />
+                </div>
+                {show && <Alert closeAlert={closeAlert} />}
+            </form>
+        </div>
     )
 }

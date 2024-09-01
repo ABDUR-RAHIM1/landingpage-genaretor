@@ -31,6 +31,7 @@ export default function ProductInfoForm() {
     }
 
     const handleAddToState = () => {
+
         const data = {
             name: "quote",
             value: quote

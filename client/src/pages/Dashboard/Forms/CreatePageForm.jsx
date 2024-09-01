@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import ProductInfoForm from './ProductInfoForm'
-import AcordionForm from './AcordionForm' 
-import uploadFile from '../../../Helpers/UploadFIle' 
+import AcordionForm from './AcordionForm'
+import uploadFile from '../../../Helpers/UploadFIle'
 import Spinner from '../../../Homecomponents/Spinner'
 import { formContext } from '../../../ContextApi/ContextApi'
 import ReviewForm from './ReviewForm'
@@ -11,34 +11,7 @@ import SubProductForm from './SubProductForm'
 
 
 export default function CreatePageForm() {
-    const { formData, setFormData, handleCreatePage, loading } = useContext(formContext)
-    const [imgLoading, setImgLoading] = useState(false)
-
-
-
-    const handleChange = async (e) => {
-        const { name, type, value, files } = e.target;
-        if (type === 'file' && files && files[0]) {
-            setImgLoading(true)
-            const fileUrl = await uploadFile(files[0]);
-            if (fileUrl) {
-                setFormData(prevFormData => ({
-                    ...prevFormData,
-                    [name]: fileUrl
-                }));
-                setImgLoading(false)
-            }
-
-        } else {
-            setFormData(prevFormData => ({
-                ...prevFormData,
-                [name]: value
-            }));
-        }
-    };
-
-
-
+    const { handleCreatePage, loading } = useContext(formContext)
 
 
     return (

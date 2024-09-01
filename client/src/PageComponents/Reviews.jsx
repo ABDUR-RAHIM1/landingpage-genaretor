@@ -6,13 +6,13 @@ import { Pagination } from 'swiper/modules';
 
 export default function Reviews(props) {
     const { heading, text, images } = props.reviewData;
-  
+
     return (
         <div>
 
             <div className="px-10 mb-10 bg-gray-100">
                 <div className=' text-center  my-10 py-5 overflow-hidden'>
-                    <h1 className='h1  '>{heading}</h1>
+                    <h1 className='h1'>{heading}</h1>
                     <p className='text-lg'>{text}</p>
                 </div>
                 <Swiper

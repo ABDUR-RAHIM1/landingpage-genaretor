@@ -1,6 +1,6 @@
 import React from 'react'
 import Home from './pages/Home/Home'
-import { Route, Routes } from 'react-router-dom' 
+import { Route, Routes } from 'react-router-dom'
 import Dashboard from './pages/Dashboard/Dashboard'
 import AdminProtected from './ProtectedRoute/AdminProtected'
 import Auth from './pages/auth/Auth'
@@ -8,16 +8,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify'
 import Notfound from './pages/Notfound/Notfound'
 import CreatePage from './pages/Dashboard/CreatePage'
-import Orders from './pages/Dashboard/pages/Orders'
-import Cookies from 'js-cookie'
-import PageDetails from './pages/Dashboard/pages/PageDetails' 
+import Orders from './pages/Dashboard/pages/Orders' 
+import PageDetails from './pages/Dashboard/pages/PageDetails'
 import ManagePage from './pages/Dashboard/pages/ManagePage'
 import OrderDetails from './pages/Dashboard/pages/OrderDetails'
 import EditPage from './pages/Dashboard/pages/EditPage'
-
-export const token = Cookies.get('pageToken');
-const userCookie = Cookies.get('pageUser');
-export const user = userCookie ? JSON.parse(userCookie) : null;
+ 
 
 export default function App() {
 
@@ -29,7 +25,7 @@ export default function App() {
 
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/home' element={<Home />} /> 
+        <Route path='/home' element={<Home />} />
         <Route path='/page/:username/:id' element={<PageDetails />} />
         <Route path='/auth' element={<Auth />} />
 
