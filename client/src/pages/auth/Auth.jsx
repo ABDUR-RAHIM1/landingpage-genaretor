@@ -2,11 +2,11 @@ import React, { useContext, useEffect, useState } from 'react'
 import { BASE_URL } from "../../API/Api";
 import Spinner from '../../Homecomponents/Spinner';
 import { toast } from 'react-toastify';
-import { useNavigate } from "react-router-dom" 
+import { useNavigate } from "react-router-dom"
 import { formContext } from '../../ContextApi/ContextApi';
 
 export default function Auth() {
-    const { token, login } = useContext(formContext)
+    const { token, login, user } = useContext(formContext)
     const [show, setShow] = useState(false);
     const [formData, setFormData] = useState({})
     const [loading, setLoading] = useState(false)
@@ -19,7 +19,7 @@ export default function Auth() {
         if (token) {
             navigate(`/dashboard/${user.username}`)
         }
-    }, [token])
+    }, [token, user])
     console.log(formData)
     const handleChange = (e) => {
 

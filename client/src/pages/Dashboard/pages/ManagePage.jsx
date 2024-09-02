@@ -28,9 +28,9 @@ export default function ManagePage() {
     {
       name: 'Image',
       selector: row => row.product.image,
-      cell: row => <Link to={`/page/${user.username}/${row._id}`}>
+      cell: row => <a  target='_blank' href={`/page/${user.username}/${row._id}`}  >
         <img src={row.product.image} className='w-[70px] h-[70px] my-5 cursor-pointer' alt="product Image" />
-      </Link>
+      </a>
     },
     {
       name: 'Product Name',
