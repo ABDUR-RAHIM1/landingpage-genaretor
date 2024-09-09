@@ -1,1 +1,1 @@
-# Server-structure
+# landing-page-server

@@ -8,16 +8,15 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify'
 import Notfound from './pages/Notfound/Notfound'
 import CreatePage from './pages/Dashboard/CreatePage'
-import Orders from './pages/Dashboard/pages/Orders' 
+import Orders from './pages/Dashboard/pages/Orders'
 import PageDetails from './pages/Dashboard/pages/PageDetails'
 import ManagePage from './pages/Dashboard/pages/ManagePage'
 import OrderDetails from './pages/Dashboard/pages/OrderDetails'
 import EditPage from './pages/Dashboard/pages/EditPage'
- 
+import Themes from './pages/Dashboard/pages/Themes' 
+
 
 export default function App() {
-
-
 
   return (
     <>
@@ -28,6 +27,7 @@ export default function App() {
         <Route path='/home' element={<Home />} />
         <Route path='/page/:username/:id' element={<PageDetails />} />
         <Route path='/auth' element={<Auth />} />
+ 
 
         {/* Dashboard start */}
 
@@ -35,6 +35,10 @@ export default function App() {
           <Route
             path="/dashboard/:username"
             element={<Dashboard />}
+          />
+          <Route
+            path="/dashboard/:username/themes"
+            element={<Themes />}
           />
           <Route
             path="/dashboard/:username/create-page"
@@ -65,3 +69,4 @@ export default function App() {
     </>
   )
 }
+

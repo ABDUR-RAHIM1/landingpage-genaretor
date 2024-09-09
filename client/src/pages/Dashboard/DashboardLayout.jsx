@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { MdDashboard } from "react-icons/md";
 import { FaArrowAltCircleRight } from 'react-icons/fa';
 import { formContext } from '../../ContextApi/ContextApi';
@@ -10,6 +10,7 @@ export default function DashboardLayout({ children }) {
   const [show, setShow] = useState(true)
   const [width, setWidth] = useState(window.innerWidth)
   const navigate = useNavigate();
+  const location = useLocation().pathname;
 
   const handleShowSidebar = () => {
     setShow(!show)
@@ -43,7 +44,28 @@ export default function DashboardLayout({ children }) {
       navigate('/auth')
     }, 1000);
   }
-
+  const sidebarItems = [
+    {
+      item: "Dashboard",
+      path: `/dashboard/${username}`
+    },
+    {
+      item: "Themes",
+      path: `/dashboard/${username}/themes`,
+    },
+    {
+      item: "Create Page",
+      path: `/dashboard/${username}/create-page`,
+    },
+    {
+      item: "Manage Pages",
+      path: `/dashboard/${username}/page-manage`,
+    },
+    {
+      item: "Orders",
+      path: `/dashboard/${username}/orders`,
+    },
+  ]
 
   return (
     <div className=' w-full flex dashboardLayout'>
@@ -55,10 +77,16 @@ export default function DashboardLayout({ children }) {
         </div>
 
         <nav className=' nav my-10'>
-          <Link to={`/dashboard/${username}`}>Dashboard</Link>
-          <Link to={`/dashboard/${username}/create-page`}>Create Page</Link>
-          <Link to={`/dashboard/${username}/page-manage`}>Manage Pages</Link>
-          <Link to={`/dashboard/${username}/orders`}>Orders</Link>
+
+          {
+            sidebarItems.map((s, i) => (
+              <Link key={i} to={s.path} className={`linkItem ${location.endsWith(s.path) && "scale-[1.12] bg-gray-400"}`}>
+                {s.item}
+              </Link>
+            ))
+          }
+
+
           <button onClick={handleLogOut} className='w-full py-4 px-2 text-center bg-red-600 hover:shadow-lg hover:rounded-md duration-200 text-white my-5'>Log out</button>
         </nav>
       </aside>
